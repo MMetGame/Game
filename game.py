@@ -22,7 +22,6 @@ from pygame.locals import *    #carga las constantes, sin llamar a pygame
 from optparse import OptionParser  #para el parceo
 import sys
 
-
 # Constantes
 WIDTH = 680   # ancho de la ventana
 HEIGHT = 544  # alto de la ventana

@@ -17,30 +17,29 @@
 
 
 # Modulos
-import pygame                  #importamos modulo para trabajar con juegos
-from pygame.locals import *    #carga las constantes, sin llamar a pygame
-from optparse import OptionParser  #para el parceo
+import pygame                      # importamos modulo para trabajar con juegos
+from pygame.locals import *        # carga las constantes, sin llamar a pygame
+from optparse import OptionParser  # para el parceo
 import sys
 
 # Constantes
 WIDTH = 680   # ancho de la ventana
 HEIGHT = 544  # alto de la ventana
-INIT = 0 # posicion 0 del largo y ancho de la ventana
+INIT = 0      # posicion 0 del largo y ancho de la ventana
 JUMP = 5
 
 WIDTH_BALL = 16  # ancho de la pelota
 HEIGHT_BALL = 16  # largo de la pelota
 
-# Clases
-#-------------------------------------------------------------------------------
+
 class Pelota(pygame.sprite.Sprite):
 
     def __init__(self, x=WIDTH, y=HEIGHT):
         self.image = load_image('images/ball.png')
-        self.rect = self.image.get_rect() #dimension y posicion de la imagen
-        self.rect.centerx = x/2
-        self.rect.centery = y/2
-        self.speed = [0.10,0.10]
+        self.rect = self.image.get_rect()  # dimension y posicion de la imagen
+        self.rect.centerx = x / 2
+        self.rect.centery = y / 2
+        self.speed = [0.10, 0.10]
 
     def movimiento(self, time):
         self.rect.centerx = self.rect.centerx + (self.speed[0] * time)
@@ -52,29 +51,24 @@ class Pelota(pygame.sprite.Sprite):
             self.speed[1] = -self.speed[1]
             self.rect.centery = self.rect.centery + (self.speed[1] * time)
 
-
-#class 
-
     # Funcion para mover por teclado
     def move_object(self, time):
         teclas = pygame.key.get_pressed()
-        if (self.rect.centery + HEIGHT_BALL/2 < HEIGHT):
+        if (self.rect.centery + HEIGHT_BALL / 2 < HEIGHT):
             if teclas[K_DOWN]:
                 self.rect.centery = self.rect.centery + (self.speed[1] * time)
-        if (self.rect.centery - HEIGHT_BALL/2 > INIT):
+        if (self.rect.centery - HEIGHT_BALL / 2 > INIT):
             if teclas[K_UP]:
                 self.rect.centery = self.rect.centery - (self.speed[1] * time)
-        if (self.rect.centerx - WIDTH_BALL/2 > INIT):
+        if (self.rect.centerx - WIDTH_BALL / 2 > INIT):
             if teclas[K_LEFT]:
                 self.rect.centerx = self.rect.centerx - (self.speed[0] * time)
-        if (self.rect.centerx + WIDTH_BALL/2 < WIDTH):
-            if teclas[K_RIGHT]: 
+        if (self.rect.centerx + WIDTH_BALL / 2 < WIDTH):
+            if teclas[K_RIGHT]:
                 self.rect.centerx = self.rect.centerx + (self.speed[0] * time)
 
 # Funciones
-#-------------------------------------------------------------------------------
-
-
+#------------------------------------------------------------------------------
 def load_image(filename):
     try:
         #agregar un try por si no se carga la imagen
@@ -82,18 +76,17 @@ def load_image(filename):
     #exepcion: no se pudo abrir el archivo y se guarda en message
     except pygame.error, message:
         #si hubo error al cargar mandamos un mensaje de lo que ocurrio
-        raise SystemExit, message
+        raise SystemExit(message)
     return image
 
 
 
 def main():
-    screen = pygame.display.set_mode((WIDTH, HEIGHT)) #Creo la ventana
-    pygame.display.set_caption("Daro") #defino el titulo de la ventana
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))  # Creo la ventana
+    pygame.display.set_caption("Daro")     # defino el titulo de la ventana
     ball1 = Pelota()
-    ball2 = Pelota(WIDTH_BALL/2, HEIGHT_BALL/2)
+    ball2 = Pelota(WIDTH_BALL / 2, HEIGHT_BALL / 2)
     try:
-        #cargando fondo
         fondo = load_image("images/campo.jpg")
     except:
         #si hubo error al cargar fondo salimos del programa
@@ -122,7 +115,6 @@ def main():
             ball1.speed[1] = -ball1.speed[1]
             ball1.rect.centerx = ball1.rect.centerx + (ball1.speed[0] * time)
             ball1.rect.centery = ball1.rect.centery + (ball1.speed[1] * time)
-
 
         #Actualiza la ventana
         pygame.display.flip()

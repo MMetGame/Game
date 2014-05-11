@@ -49,10 +49,10 @@ class Pelota(pygame.sprite.Sprite):
     def movimiento(self, time):
         self.rect.centerx += (self.speed[eje_x] * time)
         self.rect.centery += (self.speed[eje_y] * time)
-        if (self.rect.left <= INIT or self.rect.right >= WIDTH):
+        if (self.rect.left < INIT or self.rect.right > WIDTH):
             self.speed[eje_x] = -self.speed[eje_x]
             self.rect.centerx += (self.speed[eje_x] * time)
-        if (self.rect.top <= INIT or self.rect.bottom >= HEIGHT):
+        if (self.rect.top < INIT or self.rect.bottom > HEIGHT):
             self.speed[eje_y] = -self.speed[eje_y]
             self.rect.centery += (self.speed[eje_y] * time)
 
@@ -118,7 +118,7 @@ def main():
     #cuanto tiempo estoy jugando
     time_clock = pygame.time.Clock()
     while True:
-        time = time_clock.tick(60)
+        time = time_clock.tick(70)
         #imprime el fondo en la posicion (0,0) de la ventana
         screen.blit(fondo, (0, 0))
         #imprime las pelotas en la posicion definida por ball.rect
